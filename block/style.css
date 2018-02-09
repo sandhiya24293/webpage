@@ -3,13 +3,11 @@ body {
   background-color:red;
 }
 
-p {
-  font-size: 2vmin;
-}
+
     .navbar {
     
     background-color: white;
-        font-family: 'Open Sans',sans-serif;
+    font-family: 'Open Sans',sans-serif;
 }
 .switch {
   position: relative;
@@ -103,7 +101,8 @@ font-size:12px;
 }
 
 .second {
-text-align:left;
+
+
 font-size:12px;
 
 }
