@@ -1,157 +1,129 @@
-
 <!DOCTYPE HTML>
 <html>
-<head>
-<title></title>
-<!-- lined-icons -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" href="style.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
-  
-  <style type="text/css">
-.inner-div{
-   padding: 5px;
- }
-  </style>
-<script type="text/javascript">
- $(document).ready(function(){
+   <head>
+      <title></title>
+      <!-- lined-icons -->
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <link rel="stylesheet" href="style.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+      <style type="text/css">
+         .inner-div{
+         padding: 5px;
+         }
+      </style>
+      <script type="text/javascript">
+         function getdata(getcolor){
+           if (getcolor.checked == true){
+              $.ajax({
+                        type: "GET",
+                        url: "http://localhost:8088/Getjson",
+                        contentType:"application/json; charset=utf-8",
+         
+         
+                    success: function(responsee){
+                      document.getElementById("show").style.display = "inline";
+                      document.getElementById("hide").style.display = "none";
+                      var searchout = JSON.parse(responsee);
+                      var map1 ={};
+                      var variable="";
+                      var getusername =  Object.values(searchout.userresult)
+                      getcount = getusername[0].count
+                      getuser =""
+                      map1=searchout.userresult
+                     $.each( map1, function( key, value ) {
+                       
+                          getuser =key
+                          map= value.domains
+                        });
+         
+                     $.each( map, function( key, value ) {
+                         var val =  Object.values(value)
+                         variable=variable+ "<tr><td>"+key+ "</td><td style='color:red;align:justify'>"+val[0]; + "</td></tr>"
+                      });
+         
+                     $("#gti").html(variable)
+                     $("#getcount").html(getcount)
+                     $("#getuser").html(getuser)
+          }
+         });
+           }else{
+              document.getElementById("show").style.display = "none";
+              document.getElementById("hide").style.display = "inline";
+              $("#getcount").html(0)
+         
+           }
+         
+         
+         }
           
-           $.ajax({
-               type: "GET",
-               url: "http://192.155.93.248:8088/Getjson",
-               contentType:"application/json; charset=utf-8",
-               
-         
-           success: function(responsee){
-           var searchout = JSON.parse(responsee);
-           var map1 ={};
-           var variable="";
-          var getusername =  Object.values(searchout.userresult)
-          console.log(searchout.userresult);
-          getcount = getusername[0].count
-          getuser =""
-          map1=searchout.userresult
-            $.each( map1, function( key, value ) { 
-            	console.log(key,value)
-            	getuser =key
-            	map= value.domains
-            
-             });
-             	
-            $.each( map, function( key, value ) { 
-                var val =  Object.values(value)
-                variable=variable+ "<tr><td>"+key+ "</td><td style='color:red;align:justify'>"+val[0]; + "</td></tr>"
-             });
-           
-            $("#gti").html(variable)
-            $("#getcount").html(getcount)
-            $("#getuser").html(getuser)
- }
-});
-});
-         
- </script>
-</head> 
-<body style="background-color:#F1F1F1">
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header" style="padding-left: 10px">
-        <span class="glyphicon glyphicon-chevron-left  navbar-btn pull-left " style="margin-left:-20px;"><span style="font-family: sans-serif;margin-left:40px;";><b>Ad Trackers Blockers Log</b></span></span>
-      <!-- <span class="navbar-text navbar-brand-centered"><h4>Ad Trackers Blockers Log</h4></span> -->
-            <!-- <span ></span> -->
-
-    </div>
-  </div>
-</nav>
-<div style="font-size:12px;background-color:#F1F1F1;margin-left:20px;" >Trackers blocked in last 24 hours</div><br>
-
-
-
-
-    <div class="clearfix">
-  <section style="width:50%;text-align:left;">
-  <div class="card" >
-  <div class="card-block">
-    <p style="font-size:10px">TRACKERS BLOCKED</p>
-    <p  id="getcount"></p>
-    </div>
-    </div>
-  </section>
-
-
-  <section style="width:49.5%;text-align:left;" >
-  <div class="card" >
-  <div class="card-block" style="width:100%">
-   <p style="font-size:10px">DATA BANDWIDTH SAVED</p>
-   <p>104MB</p>
-   </div>
-   </div>
-  </section>
-
-</div>
-</div>
-
-  <!-- First row -->
-  <div class="row">
-   
-    
-<div class="card" style="height:70px">
-  <div class="card-block">
-    <div class="clearfix">
-  <section class="one">
-    <p>Block AD Trackers</p>
-  </section>
-
-  <section class="two">
-   <label class="switch">
-  <input type="checkbox" checked>
-  <span class="slider round"></span>
-</label>
-  </section>
-</div>
-  </div>
-</div>
-</div>
-
-  <div class="row">
-   
-    
-
-
-      </article><!-- .end Card -->
-    </div>
-  </div><!-- .end Second row -->
-</div>
-
-
-
-
-
-
-
-
- <div class="table-responsive">        
-  
-  <table class="table" class="table table-inverse" > 
-    <thead>
-      <tr >
-        <td><b style="font:bold" >From</b></td>
-        <td><b style="font:bold">Attempts</b></td>
-        
-      </tr>
-    </thead>
-    <tbody  id="gti" >
-  
-    
-    </tbody>
-  </table>
-  </div>
-
- </body>
+      </script>
+   </head>
+   <body style="background-color:#F1F1F1;font-size:12px;">
+      <nav class="navbar navbar-default">
+         <div class="container-fluid">
+            <div class="navbar-header" style="padding-left: 10px">
+               <span class="glyphicon glyphicon-chevron-left  navbar-btn pull-left " style="margin-left:-20px;"><span style="font-family: sans-serif;margin-left:40px;";><b>Ad Trackers Blockers Log</b></span></span>
+            </div>
+         </div>
+      </nav>
+      <div style="margin-left:30px;" >Trackers blocked in last 24 hours</div>
+      <br>
+      <div class="clearfix">
+         <section style="width:50%;text-align:left;">
+            <div class="card" >
+               <div class="card-block">
+                  <p style="font-size:10px">TRACKERS BLOCKED</p>
+                  <p  id="getcount">0 </p>
+               </div>
+            </div>
+         </section>
+         <section style="width:50%;text-align:left;" >
+            <div class="card" >
+               <div class="card-block" style="width:100%">
+                  <p style="font-size:10px">DATA BANDWIDTH SAVED</p>
+                  <p>0 MB</p>
+               </div>
+            </div>
+         </section>
+      </div>
+      </div>
+      <!-- First row -->
+      <div class="row">
+         <div class="card" style="height:70px">
+            <div class="card-block">
+               <div class="clearfix">
+                  <section class="one">
+                     <p>Block AD Trackers</p>
+                  </section>
+                  <section class="two">
+                     <label class="switch">
+                     <input type="checkbox"  id="getcolor" onclick="getdata(this)">
+                     <span class="slider round"></span>
+                     </label>
+                  </section>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div id="hide" style="font-size:12px;margin-left:30px;" >
+      No daily network activites is available at this time
+      </div>
+      <div class="table-responsive" id="show" style="display:none">
+         <table class="table" class="table table-inverse" >
+         <div id="hide" style="font-size:12px;margin-left:30px;" >No daily network activites is available at this time</div>
+         <div class="table-responsive" id="show" style="display:none">
+            <table class="table" class="table table-inverse" >
+               <thead>
+                  <tr >
+                     <td><b style="font:bold" >From</b></td>
+                     <td><b style="font:bold">Attempts</b></td>
+                  </tr>
+               </thead>
+               <tbody  id="gti" >
+               </tbody>
+            </table>
+         </div>
+   </body>
 </html>
-
-	
-</table>
-</div>
